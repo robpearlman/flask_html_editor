@@ -1,0 +1,40 @@
+medapps
+env
+htmlcov
+
+*.py[cod]
+
+# Installer logs
+pip-log.txt
+
+# Backup databases
+backup*
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
+
+.DS_Store
+
+# Fabfile, because clovis has a different machine to me
+.fabfile.py
+
+# _config.py, because clovis has a different config to me
+._config.py
+

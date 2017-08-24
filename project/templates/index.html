@@ -1,0 +1,87 @@
+{% extends "template.html" %} 
+{% from "_macros.html" import render_field, render_checkbox_field %}
+{% block content %}
+
+        <!-- Redactor is here.  -->
+        <script src="//cdn.ckeditor.com/4.6.1/standard-all/ckeditor.js"></script>
+  <h1> {{ specific_heading }} </h1>
+
+
+<div class="content">
+    <div class="panel panel-green margin-bottom-40">
+            <div class="panel-heading">
+              <h3 class="panel-title"><i className="fa fa-tasks"></i>Add a new item:</h3>
+            </div>
+            <div class="panel-body">
+                <!--=== Content ===-->
+<form class="form-inline" action="{{ url_for('index') }}" 
+      method="post" name="form2">
+      {{ render_field(loadfilesform.filechoices, with_label=true) }}
+      {{ render_field(loadfilesform.submit2, with_label=false) }}
+      <hr>
+      </form>
+
+<div class="add-item">
+      <form class="form-inline" action="{{ url_for('index') }}" 
+      method="post" name="form">
+      {{ render_field(form.savename, with_label=true) }}
+      <hr>
+        <br>
+    <div class="skeleton">
+        {{ form.ckeditor(placeholder="item content") }}
+        
+        {% if form.ckeditor.errors %}
+          <span class="error">
+            {% for error in form.ckeditor.errors %}
+              {{ error }}
+            {% endfor %}
+          </span>
+        {% endif %}
+    </div>
+
+        <p>
+        {{ render_field(form.submit1, with_label=true) }}
+          {# <button class="btn btn-sm btn-success" type="submit">Submit</button></p> #}
+      </form>
+  </div>
+                <!--=== End Content ===-->
+           </div>
+    </div>
+</div>
+
+        <script>
+          CKEDITOR.replace( 'ckeditor', {
+                    width: '90%',
+                    height: 600, 
+                    uiColor: '#253A78',
+                    extraPlugins: 'uploadimage,colorbutton,colordialog',
+                    imageUploadUrl: '{{ url_for("index") }}',
+                    format_tags: 'p;h3;h4;h5;div',
+                    allowedContent: true
+                  } );
+        </script>
+
+        <script type="text/javascript">
+      CKEDITOR.stylesSet.add( 'my_styles', [
+          // Block-level styles
+          // https://www.concrete5.org/community/forums/5-7-discussion/creating-style-presets-for-the-ckeditor
+          { name: 'Container', element: 'div', styles: {'padding': '10px 20px', 'background': '#f2f2f2', 'border': '1px solid #ccc'} },
+          { name: 'Warning', element: 'div', styles: {'padding': '10px 20px', 'background': 'Red', 'border': '1px solid #ccc', 'font-style' : 'bold', 'color' : 'Yellow'} },
+          // Inline styles
+          { name: 'Bad Value', element: 'strong', styles: { 'background-color': 'Red', 'color' : 'Yellow'} },
+          { name: 'OK Value', element: 'strong', styles: { 'background-color': '#0000ff', 'color' : '#ffffff'} },
+          { name: 'Good Value', element: 'strong', styles: { 'background-color': '#006400', 'color' : '#ffffff'} },
+          { name: 'Highlight Pink', element: 'strong', styles: { 'background-color': 'magenta'} },
+          { name: 'Highlight Green', element: 'strong', styles: { 'background-color': '#00ff00'} },
+          { name: 'Highlight Blue', element: 'strong', styles: { 'background-color': 'cyan'} },
+          { name: 'Highlight Yellow', element: 'strong', styles: { 'background-color': 'yellow'} },
+        ]);
+      CKEDITOR.config.stylesSet = 'my_styles',
+      CKEDITOR.config.contentsCss = '{{ url_for('static', filename='css/skeleton.css') }}'
+      CKEDITOR.config.allowedContent = true;
+      //CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR
+
+        </script>
+
+
+{% endblock %}
